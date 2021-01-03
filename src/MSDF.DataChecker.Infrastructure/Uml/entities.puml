@@ -1,0 +1,164 @@
+@startuml
+hide circle
+
+title: Data Checker Entities
+
+interface IEntity {}
+
+class Catalog implements IEntity {
+    +int Id { get; set; }
+    +string CatalogType { get; set; }
+    +string Name { get; set; }
+    +string Description { get; set; }
+    +DateTime Updated { get; set; }
+}
+
+class Container implements IEntity {
+    +Guid Id { get; set; }
+    +string Name { get; set; }
+    +int ContanerTypeId { get; set; }
+    +ContainerType ContainerType { get; set; }
+    +Guid? CreatedByUserId { get; set; }
+    +Guid? ParentContainerId { get; set; }
+    +Container ParentContainer { get; set; }
+    +List<Container> ChildContainers { get; set; }
+    +List<Rules> Rules { get; set; }
+    +bool IsDefault { get; set; }
+    +string Description { get; set; }
+    +int EnvironmentType { get; set; }
+    +int? RuleDestailsDestinationId { get; set; }
+    +Catalog RuleDestailsDestination { get; set; }
+}
+
+class DatabaseEnvironment implements IEntity {
+    +Guid Id { get; set; }
+    +string Name { get; set; }
+    +int Version { get; set; }
+    +string Database { get; set; }
+    +string User { get; set; }
+    +string Password { get; set; }
+    +string DataSource { get; set; }
+    +string ExtraData { get; set; }
+    +string MapTables { get; set; }
+    +DateTime CreatedDate { get; set; }
+    +bool? SecurityIntegrated { get; set; }
+    +int? MaxNumberResults { get; set; }
+    +int? TimeoutInMinutes  { get; set; }
+    ..Virtual..
+    +List<UserParam> UserParams  { get; set; }
+    --
+}
+
+class Log implements IEntity
+{
+    +int Id { get; set; }
+    +string Information { get; set; }
+    +string Source { get; set; }
+    +DateTime DateCreated { get; set; }
+}
+
+class Rule implements IEntity
+{
+    +Guid Id { get; set; }
+    +Guid ContainerId { get; set; }
+    +string Name { get; set; }
+    +string Description { get; set; }
+    +string ErrorMessage { get; set; }
+    +int ErrorSeverityLevel { get; set; }
+    +string Resolution { get; set; }
+    +string DiagnosticSql { get; set; }
+    +string Version { get; set; }
+    +string RuleIdentification { get; set; }
+    +int? MaxNumberResults { get; set; }
+    ..Virtual..
+    +List<RuleExecutionLog> RuleExecutionLogs { get; set; }
+    --
+}
+
+class RuleExecutionLog implements IEntity
+{
+    +int Id { get; set; }
+    +Guid RuleId { get; set; }
+    +Guid DatabaseEnvironmentId { get; set; }
+    +string Response { get; set; }
+    +int Result { get; set; }
+    +bool Evaluation { get; set; }
+    +int StatusId { get; set; }
+    +DateTime ExecutionDate { get; set; }
+    +long ExecutionTimeMs { get; set; }
+    +string ExecutedSql { get; set; }
+    +string DiagnosticSql { get; set; }
+    +int? RuleDetailsDestinationId { get; set; }
+    +string DetailsSchema { get; set; }
+    +string DetailsTableName { get; set; }
+}
+
+class EdFiRuleExecutionLogDetail implements IEntity
+{
+    +int Id { get; set; }
+    +int? EducationOrganizationId { get; set; }
+    +string StudentUniqueId { get; set; }
+    +string CourseCode { get; set; }
+    +string Discriminator { get; set; }
+    +string ProgramName { get; set; }
+    +string StaffUniqueId { get; set; }
+    +string OtherDetails { get; set; }
+    +int RuleExecutionLogId { get; set; }
+    +RuleExecutionLog RuleExecutionLog { get; set; }
+}
+
+class DestinationTableColumn
+{
+    +string Name { get; set; }
+    +string Type { get; set; }
+    +bool IsNullable { get; set; }
+}
+
+class RuleTestResult
+{
+    +int Id { get; set; }
+    +Rule Rule { get; set; }
+    +int Result { get; set; }
+    +long ExecutionTimeMs { get; set; }
+    +bool Evaluation { get; set; }
+    +Status Status { get; set; }
+    +DateTime? LastExecuted { get; set; }
+    +List<RuleExecutionLog> TestResults { get; set; }
+    +string ErrorMessage { get; set; }
+    +string ExecutedSql { get; set; }
+    +string DiagnosticSql { get; set; }
+    +int? RuleDetailsDestinationId { get; set; }
+}
+
+class Tag implements IEntity
+{
+    +int Id { get; set; }
+    +string Name { get; set; }
+    +string Description { get; set; }
+    +bool IsPublic { get; set; }
+    +DateTime Created { get; set; }
+    +DateTime Updated { get; set; }
+}
+
+class TagEntity implements IEntity
+{
+    +int Id { get; set; }
+    +int TagId { get; set; }
+    +Tag Tag { get; set; }
+    +Guid? ContainerId { get; set; }
+    +Guid? RuleId { get; set; }
+    ..Virtual..
+    +Container Container { get; set; }
+    +Rule Rule { get; set; }
+    --
+}
+
+class UserParam implements IEntity
+{
+    +Guid Id { get; set; }
+    +string Name { get; set; }
+    +string Value { get; set; }
+    +Guid DatabaseEnvironmentId { get; set; }
+}
+
+@enduml

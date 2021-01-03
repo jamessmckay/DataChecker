@@ -1,0 +1,156 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+title: Data Checker Entity Relationship
+
+entity "core.Catalogs" as Catalogs {
+    Id : int <<PK>>
+    --
+    * Id : int
+    CatalogType : nvarchar(max)
+    Name : nvarchar(max)
+    Description : nvarchar(max)
+    Updated : datetime not null
+}
+
+entity "core.ContainerTypes" as ContainerTypes {
+ Id : int <<PK>>
+    --
+    * Id : int
+    Name: nvarchar(max)
+    Description : nvarchar(max)
+}
+
+entity "core.Logs" as Logs {
+    Id : int <<PK>>
+    --
+    * Id : int
+    Information : nvarchar(max)
+    Source : nvarchar(max)
+    * DateCreated : datetime
+}
+
+entity "datachecker.Containers" as Containers {
+    Id : uniqueidentifier <<PK>>
+    --
+    * Id : uniqueidentifier
+    Name : nvarchar(max)
+    * ContainerTypeId : int <<FK>>
+    CreatedByUserId : uniqueidentifier
+    ParentContainerId : uniqueidentifier <<FK>>
+    * IsDefault : bit
+    Description : nvarchar(max)
+    RuleDetailsDestinationId : int <<FK>>
+}
+
+entity "datachecker.DatabaseEnvironments" as Environments {
+    Id : uniqueidentifier <<PK>>
+    --
+    * Id : uniqueidentifier
+    Name: nvarchar(max)
+    * Version : int
+    Database : nvarchar(max)
+    User : nvarchar(max)
+    Password : nvarchar(max)
+    DataSource : nvarchar(max)
+    ExtraData : nvarchar(max)
+    MapTables : nvarchar(max)
+    * CreatedDate : datetime
+    SecurityIntegrated : bit
+    MaxNumberResults : int
+    TimeoutInMinutes : int
+}
+
+entity "datachecker.Rules" as Rules {
+    Id : uniqueidentifier <<PK>>
+    --
+    * Id : uniqueidentifier
+    * ContainerId : int <<FK>>
+    Name : nvarchar(max)
+    Description : nvarchar(max)
+    ErrorMessage : nvarchar(max)
+    * ErrorSeverityLevel : int
+    Resolution : nvarchar(max)
+    DiagnosticSql : nvarchar(max)
+    Version : nvarchar(max)
+    RuleIdentification : nvarchar(255)
+    MaxNumberResults : int
+}
+
+entity "datachecker.TagEntities" as TagEntities {
+    Id : int <<PK>>
+    --
+    * Id : int
+    * TagId : int <<FK>>
+    ContainerId : uniqueidentifier <<FK>>
+    RuleId : uniqueidentifier <<FK>>
+}
+
+entity "datachecker.Tags" as Tags {
+    Id : int <<PK>>
+    --
+    * Id : int
+    Name : nvarchar(max)
+    Description : nvarchar(max)
+    * IsPublic : bit
+    * Created : datetime
+    * Updated : datetime
+}
+
+entity "datachecker.UserParams" as UserParams {
+    Id : uniqueidentifier <<PK>>
+    --
+    * Id : uniqueidentifier <<PK>>
+    Name : nvarchar(max)
+    Value : nvarchar(max)
+    * DatabaseEnvironmentId : uniqueidentifier <<FK>>
+}
+
+entity "destination.EdFiRulesExecutionLogDetails" as EdFiRulesExecutionLogDetails {
+    Id : int <<PK>>
+    --
+    * Id : int
+    EducationOrganizationId : int
+    StudentUniqueId : nvarchar(max)
+    CourseCode : nvarchar(max)
+    Discriminator : nvarchar(max)
+    ProgramName : nvarchar(max)
+    StaffUniqueId : nvarchar(max)
+    OtherDetails : nvarchar(max)
+    RuleExecutionLogId : int <<FK>>
+}
+
+entity "destination.RuleExecutionLogs" as RuleExecutionLogs {
+    Id : int <<PK>>
+    --
+    * Id : int
+    * RuleId : uniqueidentifier <<FK>>
+    * DatabaseEnvironmentId
+    Response : nvarchar(max)
+    * Result: int
+    * Evaluation : bit
+    * StatusId : int
+    * ExecutionDate : datetime
+    * ExecutionTimeMs : bigint
+    ExecutedSql : nvarchar(max)
+    DiagnosticSql : nvarchar(max)
+    RuleDetailsDestinationId : int
+    DetailsSchema : nvarchar(max)
+    DetailsTableName : nvarchar(max)
+}
+
+RuleExecutionLogs }o..|| Rules
+RuleExecutionLogs "RuleExecutionLogId" |o..o{ EdFiRulesExecutionLogDetails
+
+Containers "ParentContainerId" }o..|| Containers
+Containers ||..|| ContainerTypes
+Containers "RuleDetailsDestinationId" ||..o| Catalogs
+Containers |o..|{ Rules
+
+TagEntities ||..o| Containers
+TagEntities ||..o| Rules
+TagEntities ||..|| Tags
+
+Environments ||..o{ UserParams
+@enduml
