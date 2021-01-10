@@ -55,7 +55,7 @@ namespace MSDF.DataChecker.WebApi
 
             services.AddDbContext<DatabaseContext>(
                 options =>
-                    options.UseSqlServer("name=ConnectionStrings:DataCheckerStore"));
+                    options.UseSqlServer(Configuration.GetConnectionString("DataCheckerStore")));
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.Infrastruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.JobExecutorDaemon", "src\MSDF.DataChecker.JobExecutorDaemon\MSDF.DataChecker.JobExecutorDaemon.csproj", "{00495880-F069-41BB-BE52-7412CDB42A5C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Tests", "_Tests", "{AF62DDE3-6704-4296-801F-6DE0DED77908}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AF62DDE3-6704-4296-801F-6DE0DED77908}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.Tests", "tests\MSDF.DataChecker.Tests\MSDF.DataChecker.Tests.csproj", "{24F0F377-1B2F-4896-AA8B-D473916394EB}"
 EndProject
