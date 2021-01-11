@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
@@ -17,10 +17,9 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
     [SetUpFixture]
     public class GlobalIntegrationTestsSetup
     {
+        public static DatabaseContext DatabaseContext;
         private string _databaseFileName;
         private ILoggerFactory _loggerFactory;
-
-        public static DatabaseContext DatabaseContext;
 
         [OneTimeSetUp]
         public async Task OneTimeSetup()
@@ -31,12 +30,12 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
 
             var contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
                 .UseSqlite(connectionStringBuilder.ConnectionString)
-                .LogTo(Console.WriteLine, LogLevel.Information)
+                .LogTo(x => Debug.WriteLine(x), LogLevel.Information)
                 .Options;
 
             DatabaseContext = new DatabaseContext(contextOptions);
 
-            await DatabaseContext.Database.EnsureCreatedAsync();
+            DatabaseContext.Database.EnsureCreatedAsync();
         }
 
         [OneTimeTearDown]
@@ -51,11 +50,5 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
 
             _loggerFactory?.Dispose();
         }
-    }
-
-    public class TestSomething
-    {
-        [Test]
-        public void DoSomething() => Assert.True(true);
     }
 }
