@@ -15,8 +15,8 @@ namespace MSDF.DataChecker.JobExecutorDaemon
     public class HangfireServer : IHostedService
     {
         private readonly ILogger<HangfireServer> _logger;
-        private BackgroundJobServer _server;
         private readonly int _workerCount;
+        private BackgroundJobServer _server;
 
         public HangfireServer(ILogger<HangfireServer> logger, IConfiguration configuration)
         {

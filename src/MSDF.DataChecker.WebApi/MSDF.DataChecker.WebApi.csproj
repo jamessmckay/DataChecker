@@ -32,6 +32,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj" />
       <ProjectReference Include="..\MSDF.DataChecker.Infrastructure\MSDF.DataChecker.Infrastructure.csproj" />
     </ItemGroup>
 
