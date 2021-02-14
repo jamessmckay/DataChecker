@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.DbDeploy", "src\MSDF.DataChecker.DbDeploy\MSDF.DataChecker.DbDeploy.csproj", "{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.Common", "MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj", "{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,12 @@ Global
 		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Publish|Any CPU.Build.0 = Debug|Any CPU
 		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}.Publish|Any CPU.ActiveCfg = Debug|Any CPU
+		{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}.Publish|Any CPU.Build.0 = Debug|Any CPU
+		{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
