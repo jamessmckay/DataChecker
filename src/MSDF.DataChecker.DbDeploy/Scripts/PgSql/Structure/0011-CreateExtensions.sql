@@ -3,6 +3,4 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-CREATE SCHEMA IF NOT EXISTS core AUTHORIZATION postgres;
-CREATE SCHEMA IF NOT EXISTS datachecker AUTHORIZATION postgres;
-CREATE SCHEMA IF NOT EXISTS destination AUTHORIZATION postgres;
+create extension if not exists "pgcrypto";
