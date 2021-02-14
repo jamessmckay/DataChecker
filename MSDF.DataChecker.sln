@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.Tests", "t
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.csproj", "{97D43B4A-D6E4-49B1-8ACA-F9099F1DF454}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.DbDeploy", "src\MSDF.DataChecker.DbDeploy\MSDF.DataChecker.DbDeploy.csproj", "{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,12 @@ Global
 		{24F0F377-1B2F-4896-AA8B-D473916394EB}.Publish|Any CPU.Build.0 = Debug|Any CPU
 		{24F0F377-1B2F-4896-AA8B-D473916394EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24F0F377-1B2F-4896-AA8B-D473916394EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Publish|Any CPU.ActiveCfg = Debug|Any CPU
+		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Publish|Any CPU.Build.0 = Debug|Any CPU
+		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
