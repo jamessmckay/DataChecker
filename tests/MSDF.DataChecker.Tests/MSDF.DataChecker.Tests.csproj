@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="IntegrationTests\HandlerTests" />
     <Folder Include="IntegrationTests\OrmMappingTests" />
+    <Folder Include="UnitTests" />
   </ItemGroup>
 
 </Project>

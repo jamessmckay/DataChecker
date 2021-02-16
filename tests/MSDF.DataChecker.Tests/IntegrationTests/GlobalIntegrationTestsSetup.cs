@@ -19,7 +19,6 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
     {
         public static DatabaseContext DatabaseContext;
         private string _databaseFileName;
-        private ILoggerFactory _loggerFactory;
 
         [OneTimeSetUp]
         public async Task OneTimeSetup()
@@ -35,7 +34,7 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
 
             DatabaseContext = new DatabaseContext(contextOptions);
 
-            DatabaseContext.Database.EnsureCreatedAsync();
+            await DatabaseContext.Database.EnsureCreatedAsync();
         }
 
         [OneTimeTearDown]
@@ -47,8 +46,6 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
             {
                 File.Delete(_databaseFileName);
             }
-
-            _loggerFactory?.Dispose();
         }
     }
 }
