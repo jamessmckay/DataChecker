@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json.schemastore.org/launchsettings.json",
+    "profiles": {
+        "MSDF.DataChecker.DbDeploy": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "DOTNET_ENVIRONMENT": "Development"
+            },
+            "commandLineArgs": "-c \"host=localhost;port=5432;username=postgres;database=data_checker;pooling=true;Minimum Pool Size=10;Maximum Pool Size=50;client encoding=utf-8;command timeout=600\" --engine PostgreSQL"
+        }
+    }
+}
