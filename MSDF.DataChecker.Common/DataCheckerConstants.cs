@@ -7,8 +7,7 @@ namespace MSDF.DataChecker.Common
 {
     public static class DataCheckerConstants
     {
-        public const string SqlServer = "sqlserver";
-        public const string PostgreSQL = "postgresql";
-
+        public const string SqlServer = "sqlServer";
+        public const string PostgreSQL = "postgreSql";
     }
 }
