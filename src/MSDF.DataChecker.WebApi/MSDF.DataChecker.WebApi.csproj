@@ -31,7 +31,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj" />
     <ProjectReference Include="..\MSDF.DataChecker.Infrastructure\MSDF.DataChecker.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

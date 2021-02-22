@@ -10,7 +10,6 @@
     <EmbeddedResource Include="Scripts/**/*.sql" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj" />
     <ProjectReference Include="..\MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj" />
   </ItemGroup>
   <ItemGroup>
