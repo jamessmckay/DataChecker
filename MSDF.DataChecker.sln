@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "build\_build.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.DbDeploy", "src\MSDF.DataChecker.DbDeploy\MSDF.DataChecker.DbDeploy.csproj", "{303E58B0-2FA4-425B-9E64-AEAFB7784CE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.Common", "MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj", "{A98CE56F-3D8B-469C-AB2D-B6F754BED8CE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSDF.DataChecker.Common", "src\MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj", "{0ACA91B6-2419-4241-82E3-AF6BBDE11F2F}"
 EndProject
 Global
