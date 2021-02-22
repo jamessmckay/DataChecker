@@ -9,8 +9,8 @@ namespace MSDF.DataChecker.Common.Enumerations
 {
     public class DatabaseEngine : Enumeration<DatabaseEngine, string>
     {
-        public static readonly DatabaseEngine SqlServer = new DatabaseEngine( DataCheckerConstants.SqlServer, "SQL Server");
-        public static readonly DatabaseEngine PostgreSQL = new DatabaseEngine(DataCheckerConstants.PostgreSQL, "PostgreSQL");
+        public static readonly DatabaseEngine SqlServer = new DatabaseEngine( Conventions.SqlServer, "SQL Server");
+        public static readonly DatabaseEngine PostgreSQL = new DatabaseEngine(Conventions.PostgreSQL, "PostgreSQL");
 
         public DatabaseEngine(string value, string displayName)
             : base(value, displayName)
@@ -25,7 +25,7 @@ namespace MSDF.DataChecker.Common.Enumerations
             }
 
             throw new NotSupportedException(
-                $"Not supported DatabaseEngine \"{value}\". Supported engines: {DataCheckerConstants.SqlServer}, and {DataCheckerConstants.PostgreSQL}.");
+                $"Not supported DatabaseEngine \"{value}\". Supported engines: {Conventions.SqlServer}, and {Conventions.PostgreSQL}.");
         }
     }
 }
