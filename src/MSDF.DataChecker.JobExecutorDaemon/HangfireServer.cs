@@ -22,10 +22,10 @@ namespace MSDF.DataChecker.JobExecutorDaemon
         {
             _logger = logger;
 
-            string nameOrConnectionString = configuration.GetConnectionString("RulesExecutorStore");
+            string connectionString = configuration.GetConnectionString("RulesExecutorStore");
             _workerCount = configuration.GetValue<int?>("JobExecutor:Processes") ?? 2;
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage(nameOrConnectionString);
+            GlobalConfiguration.Configuration.UseSqlServerStorage(connectionString);
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
