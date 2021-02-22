@@ -6,9 +6,12 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using CommandLine;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MSDF.DataChecker.Common.Enumerations;
+using MSDF.DataChecker.DbDeploy.DatabaseCreators;
+using MSDF.DataChecker.DbDeploy.UpgradeEngineBuilderFactories;
 using Serilog;
 using Serilog.Events;
 
@@ -56,7 +59,22 @@ namespace MSDF.DataChecker.DbDeploy
                     .AddCommandLine(args, CommandLineArguments.SwitchingMapping())
                     .Build();
 
-                Log.Information("Starting host");
+                var serviceProvider = CreateServiceProvider(new ServiceCollection(), configRoot);
+
+                var databaseCreator = serviceProvider.GetService<IDatabaseCreator>();
+
+                databaseCreator.EnsureDatabaseIsCreated();
+
+                foreach (var upgradeEngine in serviceProvider.GetService<IUpgradeEngineFactory>().Create())
+                {
+                    var result = upgradeEngine.PerformUpgrade();
+
+                    if (!result.Successful)
+                    {
+                        throw result.Error;
+                    }
+                }
+
                 Environment.ExitCode = 0;
             }
             catch (Exception ex)
@@ -76,6 +94,30 @@ namespace MSDF.DataChecker.DbDeploy
             }
 
             return Environment.ExitCode;
+        }
+
+        private static IServiceProvider CreateServiceProvider(IServiceCollection services, IConfiguration configuration)
+        {
+            var databaseEngine = DatabaseEngine.TryParseEngine(configuration.GetValue<string>("DatabaseEngine"));
+
+            services.AddLogging(loggingBuilder => loggingBuilder.AddSerilog(dispose: true))
+                .AddSingleton(configuration)
+                .AddSingleton(databaseEngine);
+
+            if (databaseEngine.Equals(DatabaseEngine.PostgreSQL))
+            {
+                services
+                    .AddSingleton<IDatabaseCreator, PostgresDatabaseCreator>()
+                    .AddSingleton<IUpgradeEngineFactory, PostgresUpgradeEngineFactory>();
+            }
+            else
+            {
+                services
+                    .AddSingleton<IDatabaseCreator, SqlServerDatabaseCreator>()
+                    .AddSingleton<IUpgradeEngineFactory, SqlSeverUpgradeEngineFactory>();
+            }
+
+            return services.BuildServiceProvider();
         }
     }
 }
