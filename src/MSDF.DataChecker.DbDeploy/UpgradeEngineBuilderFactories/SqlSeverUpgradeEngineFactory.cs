@@ -28,7 +28,7 @@ namespace MSDF.DataChecker.DbDeploy.UpgradeEngineBuilderFactories
             {
                 DeployChanges.To
                     .SqlDatabase(_connectionString)
-                    .JournalToPostgresqlTable(DeployConventions.SqlServer.DefaultSchema, DeployConventions.JournalTable)
+                    .JournalToSqlTable(DeployConventions.SqlServer.DefaultSchema, DeployConventions.JournalTable)
                     .WithVariablesDisabled()
                     .WithScriptsEmbeddedInAssembly(
                         typeof(Program).Assembly,
@@ -39,7 +39,7 @@ namespace MSDF.DataChecker.DbDeploy.UpgradeEngineBuilderFactories
                     .Build(),
                 DeployChanges.To
                     .SqlDatabase(_connectionString)
-                    .JournalToPostgresqlTable(DeployConventions.SqlServer.DefaultSchema, DeployConventions.JournalTable)
+                    .JournalToSqlTable(DeployConventions.SqlServer.DefaultSchema, DeployConventions.JournalTable)
                     .WithVariablesDisabled()
                     .WithScriptsEmbeddedInAssembly(
                         typeof(Program).Assembly,
