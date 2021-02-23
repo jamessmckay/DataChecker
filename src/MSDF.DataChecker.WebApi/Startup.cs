@@ -9,6 +9,7 @@ using Autofac.Extensions.DependencyInjection;
 using AutofacSerilogIntegration;
 using AutoMapper;
 using Hangfire;
+using Hangfire.PostgreSql;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,6 +22,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MSDF.DataChecker.Common.Enumerations;
 using MSDF.DataChecker.Domain;
 using MSDF.DataChecker.WebApi.Modules;
 using Serilog;
@@ -52,6 +54,10 @@ namespace MSDF.DataChecker.WebApi
             Log.Debug("Configuring Services");
 
             services.AddSingleton(Configuration);
+
+            var databaseEngine = DatabaseEngine.TryParseEngine(Configuration.GetValue<string>("DatabaseEngine"));
+
+            services.AddSingleton(databaseEngine);
 
             services.AddDbContext<DatabaseContext>(
                 options =>
@@ -101,11 +107,17 @@ namespace MSDF.DataChecker.WebApi
 
             services.AddHangfire(
                 config =>
+                {
                     config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                         .UseSimpleAssemblyNameTypeSerializer()
-                        .UseRecommendedSerializerSettings()
-                        .UseSqlServerStorage(
-                            Configuration.GetConnectionString("RulesExecutorStore"),
+                        .UseRecommendedSerializerSettings();
+
+                    string connectionString = Configuration.GetConnectionString("RulesExecutorStore");
+
+                    if (databaseEngine.Equals(DatabaseEngine.SqlServer))
+                    {
+                        config.UseSqlServerStorage(
+                            connectionString,
                             new SqlServerStorageOptions
                             {
                                 CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
@@ -113,7 +125,21 @@ namespace MSDF.DataChecker.WebApi
                                 QueuePollInterval = TimeSpan.Zero,
                                 UseRecommendedIsolationLevel = true,
                                 DisableGlobalLocks = true
-                            }));
+                            });
+                    }
+                    else
+                    {
+                        config.UsePostgreSqlStorage(
+                            connectionString,
+                            new PostgreSqlStorageOptions
+                            {
+                                DistributedLockTimeout = TimeSpan.FromMinutes(5),
+                                InvisibilityTimeout = TimeSpan.FromMinutes(5),
+                                QueuePollInterval = TimeSpan.Zero,
+                                EnableTransactionScopeEnlistment = true
+                            });
+                    }
+                });
 
             if (Configuration.GetValue<bool?>("JobExecutor:Host") ?? false)
             {

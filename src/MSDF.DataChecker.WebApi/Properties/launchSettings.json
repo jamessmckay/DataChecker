@@ -1,11 +1,27 @@
 {
     "$schema": "http://json.schemastore.org/launchsettings.json",
     "profiles": {
-        "MSDF.DataChecker.WebApi": {
+        "SqlServer": {
             "commandName": "Project",
             "launchBrowser": true,
-            "commandLineArgs": "--environment Development",
-            "applicationUrl": "http://localhost:5500;"
+            "applicationUrl": "http://localhost:5500;",
+            "environmentVariables": {
+                "DOTNET_ENVIRONMENT": "Development",
+                "ConnectionStrings:DataCheckerStore": "Data Source=localhost; Database=DataChecker; Integrated Security=true; Persist Security Info=True;",
+                "ConnectionStrings:RulesExecutorStore": "Data Source=localhost; Database=DataChecker; Integrated Security=true; Persist Security Info=True;",
+                "DatabaseEngine": "SqlServer"
+            }
+        },
+        "PostgreSQL": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "applicationUrl": "http://localhost:5500;",
+            "environmentVariables": {
+                "DOTNET_ENVIRONMENT": "Development",
+                "ConnectionStrings:DataCheckerStore": "host=localhost;port=5432;username=postgres;database=data_checker;pooling=true;Minimum Pool Size=10;Maximum Pool Size=50;client encoding=utf-8;command timeout=600",
+                "ConnectionStrings:RulesExecutorStore": "host=localhost;port=5432;username=postgres;database=data_checker;pooling=true;Minimum Pool Size=10;Maximum Pool Size=50;client encoding=utf-8;command timeout=600",
+                "DatabaseEngine": "PostgreSQL"
+            }
         }
     }
 }

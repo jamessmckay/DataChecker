@@ -6,9 +6,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Hangfire;
+using Hangfire.PostgreSql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MSDF.DataChecker.Common.Enumerations;
 
 namespace MSDF.DataChecker.JobExecutorDaemon
 {
@@ -25,7 +27,16 @@ namespace MSDF.DataChecker.JobExecutorDaemon
             string connectionString = configuration.GetConnectionString("RulesExecutorStore");
             _workerCount = configuration.GetValue<int?>("JobExecutor:Processes") ?? 2;
 
-            GlobalConfiguration.Configuration.UseSqlServerStorage(connectionString);
+            var databaseEngine = DatabaseEngine.TryParseEngine(configuration.GetValue<string>("DatabaseEngine"));
+
+            if (databaseEngine.Equals(DatabaseEngine.SqlServer))
+            {
+                GlobalConfiguration.Configuration.UseSqlServerStorage(connectionString);
+            }
+            else
+            {
+                GlobalConfiguration.Configuration.UsePostgreSqlStorage(connectionString);
+            }
         }
 
         public Task StartAsync(CancellationToken cancellationToken)

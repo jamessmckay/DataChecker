@@ -1,10 +1,18 @@
 ﻿{
-  "profiles": {
-    "MSDF.DataChecker.JobExecutorDaemon": {
-      "commandName": "Project",
-      "environmentVariables": {
-        "DOTNET_ENVIRONMENT": "Development"
-      }
+    "profiles": {
+        "Sql Server": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "DOTNET_ENVIRONMENT": "Development"
+            },
+            "commandLineArgs": "--ConnectionStrings:RulesExecutorStore \"Data Source=localhost; Database=DataChecker; Integrated Security=true;\" --DatabaseEngine SqlServer"
+        },
+        "PostgreSQL": {
+            "commandName": "Project",
+            "environmentVariables": {
+                "DOTNET_ENVIRONMENT": "Development"
+            },
+            "commandLineArgs": "--ConnectionStrings:RulesExecutorStore \"host=localhost;port=5432;username=postgres;database=data_checker;pooling=true;Minimum Pool Size=10;Maximum Pool Size=50;client encoding=utf-8;command timeout=600\" --DatabaseEngine PostgreSQL"
+        }
     }
-  }
 }

@@ -14,10 +14,12 @@
     <PackageReference Include="FluentValidation.AspNetCore" Version="9.5.1" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.19" />
     <PackageReference Include="Hangfire.Autofac" Version="2.3.1" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.8.1" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.19" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
+    <PackageReference Include="Npgsql" Version="5.0.3" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="4.0.0" />
@@ -31,6 +33,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="6.1.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj" />
     <ProjectReference Include="..\MSDF.DataChecker.Infrastructure\MSDF.DataChecker.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
