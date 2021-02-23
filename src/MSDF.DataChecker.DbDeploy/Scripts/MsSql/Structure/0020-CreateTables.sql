@@ -67,7 +67,8 @@ BEGIN
         Version nvarchar(max) NULL,
         RuleIdentification nvarchar(255) NULL,
         MaxNumberResults int NULL,
-        CONSTRAINT PK_Rules PRIMARY KEY CLUSTERED (Id)
+        CONSTRAINT PK_Rules PRIMARY KEY CLUSTERED (Id),
+        CONSTRAINT UC_Rules UNIQUE(ContainerId, RuleIdentification)
     );
 END
 GO

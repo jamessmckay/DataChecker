@@ -47,7 +47,8 @@ create table if not exists datachecker.rules (
     version varchar null,
     ruleidentification varchar(255) null,
     maxnumberresults int null,
-    constraint pk_rules primary key (id)
+    constraint pk_rules primary key (id),
+    constraint uc_rules unique (containerid, ruleidentification)
 );
 
 alter table datachecker.containers alter column id set default gen_random_uuid();
