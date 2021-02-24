@@ -1,18 +1,23 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Microsoft.EntityFrameworkCore;
+using MSDF.DataChecker.Common.Enumerations;
 using MSDF.DataChecker.Domain.Entities;
+using MSDF.DataChecker.Domain.Extensions;
 
 namespace MSDF.DataChecker.Domain
 {
     public class DatabaseContext : DbContext
     {
-        public DatabaseContext(DbContextOptions<DatabaseContext> options)
+        private readonly DatabaseEngine _databaseEngine;
+
+        public DatabaseContext(DbContextOptions<DatabaseContext> options, DatabaseEngine databaseEngine )
             : base(options)
         {
+            _databaseEngine = databaseEngine;
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
@@ -40,21 +45,7 @@ namespace MSDF.DataChecker.Domain
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Seeding Initial Data
-
-            modelBuilder.Entity<ContainerType>().HasData(
-                new ContainerType
-                {
-                    Id = 1,
-                    Name = "Collection"
-                });
-
-            modelBuilder.Entity<ContainerType>().HasData(
-                new ContainerType
-                {
-                    Id = 2,
-                    Name = "Folder"
-                });
+            modelBuilder.ApplyDatabaseServerSpecificConventions(_databaseEngine);
         }
     }
 }

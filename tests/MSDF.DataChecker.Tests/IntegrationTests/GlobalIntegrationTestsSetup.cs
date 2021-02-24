@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MSDF.DataChecker.Common.Enumerations;
 using MSDF.DataChecker.Domain;
 using NUnit.Framework;
 
@@ -32,7 +33,7 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
                 .LogTo(x => Debug.WriteLine(x), LogLevel.Information)
                 .Options;
 
-            DatabaseContext = new DatabaseContext(contextOptions);
+            DatabaseContext = new DatabaseContext(contextOptions, DatabaseEngine.SqlServer);
 
             await DatabaseContext.Database.EnsureCreatedAsync();
         }

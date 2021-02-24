@@ -19,4 +19,8 @@
     <ItemGroup>
       <Folder Include="Services\CollectionCategories" />
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MSDF.DataChecker.Common\MSDF.DataChecker.Common.csproj" />
+    </ItemGroup>
 </Project>

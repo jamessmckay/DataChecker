@@ -61,7 +61,18 @@ namespace MSDF.DataChecker.WebApi
 
             services.AddDbContext<DatabaseContext>(
                 options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DataCheckerStore")));
+                {
+                    string connectionString = Configuration.GetConnectionString("DataCheckerStore");
+                    if (databaseEngine.Equals(DatabaseEngine.SqlServer))
+                    {
+                        options.UseSqlServer(connectionString);
+                    }
+                    else
+                    {
+                        options.UseNpgsql(connectionString);
+                    }
+                });
+                    
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -135,7 +146,7 @@ namespace MSDF.DataChecker.WebApi
                             {
                                 DistributedLockTimeout = TimeSpan.FromMinutes(5),
                                 InvisibilityTimeout = TimeSpan.FromMinutes(5),
-                                QueuePollInterval = TimeSpan.Zero,
+                                QueuePollInterval = TimeSpan.FromMinutes(10),
                                 EnableTransactionScopeEnlistment = true
                             });
                     }
