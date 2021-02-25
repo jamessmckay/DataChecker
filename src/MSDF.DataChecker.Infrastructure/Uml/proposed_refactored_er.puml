@@ -1,0 +1,320 @@
+@startuml
+hide circle
+skinparam linetype ortho
+
+title: Refactored Data Checker Entity Relationship
+
+' DATA VALIDATION METADATA SCHEMA
+entity "dv_metadata.Container" as Containers {
+    * ContainerId : uuid <<generated>> <<PK>>
+    --
+    * Name : varchar(256) <<UNIQUE>>
+    * ContainerTypeId : int <<FK>>
+    ..
+    ParentContainerId: uuid <<FK>>
+    IsDefault : bit <<default false>>
+    Description : varchar(512)
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_metadata.Rule" as Rules {
+    * RuleId : int <<generated>> <<PK>>
+    --
+    * RuleUniqueId: uuid <<generated>> <<UNIQUE>>
+    * Version: sequence <<UNIQUE>>
+    * Name : varchar(max)
+    * ErrorSeverityLevelTypeId : int <<FK>>
+    * ContainerId : uuid <<FK>>
+    ..
+    Description : varchar(512)
+    ErrorMessage : varchar(max)
+    Resolution : varchar(max)
+    SemanticVersion : varchar(128)
+    MaxNumberResults : int
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_metadata.RuleSql" as RuleSql {
+    * RuleSqlId: int <<generated>> <<PK>>
+    --
+    * RuleId : int <<FK>> <<UNIQUE>>
+    * DatabaseEngineTypeId : int <<FK>> <<UNIQUE>>
+    * DefaultDiagnosticDataDisplayFormatTypeId : int <<FK>>
+    * RuleSql : varchar(max)
+    * DiagnosticSql: varchar(max)
+    ..
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_metadata.Tag" as Tags {
+    * TagId : int <<generated>> <<PK>>
+    --
+    * Name : varchar(max) <<UNIQUE>>
+    ..
+    Description : varchar(max)
+    IsPublic : bit <<default false>>
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_metadata.ContainerTagAssociation" as ContainerTagAssociations {
+    * ContainerTagAssociationId : int <<generated>> <<PK>>
+    --
+    * ContainerId: uuid <<FK>>
+    * TagId: int <<FK>>
+    ..
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_metadata.RuleTagAssociation" as RuleTagAssociations {
+    * RuleTagAssociationId : int <<generated>> <<PK>>
+    --
+    * RuleUniqueId: uuid <<FK>>
+    * TagId: int <<FK>>
+    ..
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_metadata.DatabaseConnection" as DatabaseConnections {
+    * DatabaseConnectionId: int <<generated>> <<PK>>
+    --
+    * Name: varchar(256) <<UNIQUE>>
+    * ConnectionString : varchar(max) <<encrypted>>
+    * DatabaseEngineTypeId : int <<FK>>
+    ..
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+
+'SNAPSHOT SCHEMA
+entity "dv_snapshot.Container" as exeContainers {
+    * ExecutionContainerId : int <<generated>> <<PK>>
+    --
+    * ContainerId: uuid <<FK>>
+    * ContainerTypeId : int <<FK>>
+    ..
+    ParentExecutionContainerId : int <<FK>>
+    Name : varchar(256)
+    Description : varchar(512)
+}
+
+entity "dv_snapshot.DatabaseConnection" as exeDatabaseConnections {
+    * ExecutionDatabaseConnectionId: int <<generated>> <<PK>>
+    --
+    * ExecutionContextId: int <<FK>> <<UNIQUE>>
+    * DatabaseConnectionId: int <<FK>>
+    * Name: varchar(256)
+    * ConnectionString : varchar(max) <<encrypted>>
+    * DatabaseEngineTypeId : int <<FK>>
+    ..
+    Created: datetime <<default now()>>
+    Updated: datetime <<default now()>>
+}
+
+entity "dv_snapshot.ContainerTagAssociation" as exeContainerTagAssociations {
+    * ExecutionContainerTagAssociationId : int <<generated>> <<PK>>
+    --
+    * ExecutionContainerId: int <<FK>>
+    * ExecutionTagId: int <<FK>>
+}
+
+entity "dv_snapshot.RuleTagAssociation" as exeRuleTagAssociations {
+    * ExecutionRuleTagAssociationId : int <<generated>> <<PK>>
+    --
+    * RuleId: int <<FK>>
+    * TagId: int <<FK>>
+}
+
+entity "dv_snapshot.Tag" as exeTags {
+    * ExecutionTagId : int <<generated>> <<PK>>
+    --
+    * TagId : int <<FK>>
+    ..
+    Name : varchar(256)
+    Description : varchar(512)
+    IsPublic : bit <<default false>>
+}
+
+' EXECUTION SCHEMA
+entity "dv_execution.Context" as exeContext {
+    * ExecutionContextId: int <<generated>> <<PK>>
+    ---
+    * ExecutionDatabaseConnectionId : int <<FK>>
+    * ExecutionContainerId : int <<FK>>
+    ..
+    ActiveFrom : datetime
+    ActiveTo : datetime
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_execution.ContextTagAssociation" as exeContextTag {
+    * ExecutionContextTagAssociationId: int <<generated>> <<PK>>
+    --
+    * ExecutionContextId : int <<FK>>
+    * ExecutionTagId : int <<FK>>
+}
+
+' this is managed by hangfire
+entity "dv_execution.Job" as exeJob {
+    * ExecutionJobId: int <<generated>> <<PK>>
+    --
+    * Name: varchar(256)
+    * TenantId: int <<FK optional>> <<default 0>>
+    ..
+    Cron : varchar(100)
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_execution.JobContextAssociation" as exeJobAssociation {
+    * ExecutionJobContextAssociationId : int <<generated>> <<PK>>
+    --
+    * ExecutionContextId : int <<FK>> <<UNIQUE>>
+    * ExecutionJobId : int <<FK>>
+}
+
+
+
+entity "dv_execution.RuleLog" as exeRuleLog {
+    ExecutionRuleLogId : int <<generated >> <<PK>>
+    --
+    * ExecutionContextId: int <<FK>>
+    * RuleId : int <<FK>>
+    * StatusTypeId : int <<<FK>>
+    ..
+    Result: int
+    Evaluation : bit
+    ExecutionDate : datetime
+    ExecutionTimeMs : bigint
+    Response : varchar(max)
+    DiagnosticData : json
+    Created: datetime <<default now()>>
+    Updated: datetime <<default now()>>
+}
+
+' ENUMERATION SCHEMA
+entity "dv_enumeration.StatusType" as StatusType {
+    * StatusTypeId: int <<generated>> <<PK>>
+    ---
+    * Name : varchar(256) <<UNIQUE>>
+    ..
+    Description: varchar(512)
+    Created: datetime <<default now()>>
+    Updated: datetime <<default now()>>
+}
+
+entity "dv_enumeration.DataEngineType" as DatabaseEngineType {
+    * DataEngineTypeId: int <<generated>> <<PK>>
+    --
+    * Name : varchar(256) <<UNIQUE>>
+    ..
+    Description : varchar(512)
+    Created: datetime <<default now()>>
+    Updated: datetime <<default now()>>
+}
+
+entity "dv_enumeration.DiagnosticDataDisplayFormatType" as DiagnosticDataDisplayFormatType {
+    * DiagnosticDataDisplayFormatTypeId: int <<generated>> <<PK>>
+    --
+    * Name : varchar(256) <<UNIQUE>>
+    ..
+    Description : varchar(512)
+    Created : datetime
+    Updated : datetime
+}
+
+entity "dv_enumeration.ErrorSeverityLevelType" as ErrorSeverityLevelType {
+    * ErrorSeverityLevelTypeId : int <<generated>> <<PK>>
+    --
+    * Name : varchar(256) <<UNIQUE>>
+    ..
+    Description : varchar(512)
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+entity "dv_enumeration.ContainerType" as ContainerType {
+    * ContainerTypeId : int <<generated>> <<PK>>
+    --
+    * Name : varchar(256) <<UNIQUE>>
+    Description : varchar(512)
+    ..
+    Created : datetime <<default now()>>
+    Updated : datetime <<default now()>>
+}
+
+' INSTRUCUTURE SPECIFIC
+entity "instructure.Tenant" as Tenant {
+    *TenantId: int <<generated>> <<PK>>
+    ---
+    * TenantUniqueId : varchar(256)
+    * Name : varchar(256)
+    ..
+    Created: datetime <<default now()>>
+    Updated: datetime <<default now()>>
+}
+
+entity "instructure.TenantDatabaseConnectionAssociation" as TenantDatabaseConnectionAssociation {
+    * TenantDatabaseConnectionAssociationId : int <<PK>>
+    --
+    * TenantId : int <<FK>>
+    * DatabaseConnectionId : int <<FK>>
+    ..
+    Created: datetime <<default now()>>
+    Updated: datetime <<default now()>>
+}
+
+Containers |o..|{ Rules
+ContainerTagAssociations }|..|{ Tags
+Containers |o..o{ ContainerTagAssociations
+Containers "ParentContainerId" |o..o{ "ContainerId" Containers
+Containers ||..|| ContainerType
+
+RuleTagAssociations }|..|{ Tags
+RuleTagAssociations }|..|| Rules
+
+RuleSql }|..|| DiagnosticDataDisplayFormatType
+RuleSql ||..|| DatabaseEngineType
+Rules ||..|{ RuleSql
+Rules ||..|{ ErrorSeverityLevelType
+
+
+exeContext ||..|| exeDatabaseConnections
+exeContext ||..|| exeContainers
+exeContext ||..|{ exeContextTag
+exeTags }o..|| exeContextTag
+
+exeContainers "ParentContainerId" |o..o{ "ExecutionContainerId" exeContainers
+exeContainers ||..|{ ContainerType
+
+exeDatabaseConnections |o..|{ DatabaseConnections
+
+DatabaseConnections ||..|| DatabaseEngineType
+
+exeJobAssociation ||..|{ exeContext
+exeJobAssociation }|..|{ exeJob
+
+exeContainerTagAssociations }|..|{ exeTags
+exeContainerTagAssociations }o..o{ exeContainers
+
+exeRuleTagAssociations }o..|{ exeTags
+exeRuleTagAssociations }|..|{ Rules
+
+Tags |o..|{ exeTags
+
+exeRuleLog }o..|| Rules
+exeRuleLog }o..|| StatusType
+exeRuleLog }o..|| exeContext
+
+TenantDatabaseConnectionAssociation ||..|{ DatabaseConnections
+Tenant ||..o{ exeJob
+Tenant ||..|{ TenantDatabaseConnectionAssociation
+
+@enduml
