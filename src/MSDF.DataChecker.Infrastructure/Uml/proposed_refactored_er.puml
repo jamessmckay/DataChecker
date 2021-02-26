@@ -18,10 +18,20 @@ entity "dv_metadata.Container" as Containers {
     Modified : datetime <<default now()>>
 }
 
-entity "dv_metadata.Rule" as Rules {
-    * RuleId : int <<generated>> <<PK>>
+entity "dv_metadata.Rule" as Rule {
+    * RuleUnquieId : uuid <<generated>> <<PK>>
+    * Name : varchar(512)
     --
-    * RuleUniqueId: uuid <<generated>> <<UNIQUE>>
+    Description : varchar(max)
+    SemanticVersion : varchar(128)
+    Created : datetime <<default now()>>
+    Modified : datetime <<default now()>>
+}
+
+entity "dv_metadata.RuleDefinition" as Rules {
+    * RuleDefinitionId : int <<generated>> <<PK>>
+    --
+    * RuleUniqueId: uuid <<FK>> <<UNIQUE>>
     * Version: sequence <<UNIQUE>>
     * ErrorSeverityLevelTypeId : int <<FK>>
     * ContainerId : uuid <<FK>>
@@ -121,11 +131,18 @@ entity "dv_snapshot.ContainerTagAssociation" as exeContainerTagAssociations {
     * ExecutionTagId: int <<FK>>
 }
 
-entity "dv_snapshot.RuleTagAssociation" as exeRuleTagAssociations {
+entity "dv_snapshot.ContainerRuleDefinitionAssociation" as exeContainerRuleDefinitionAssociation {
+    * ExecutionContainerRuleDefinitionAssociation : int <<generated>> <<PK>>
+    --
+    * RuleDefinitionId : int <<FK>>
+    * ExecutionContainerId : int <<FK>>
+}
+
+entity "dv_snapshot.RuleDefinitionTagAssociation" as exeRuleTagAssociations {
     * ExecutionRuleTagAssociationId : int <<generated>> <<PK>>
     --
-    * RuleId: int <<FK>>
-    * TagId: int <<FK>>
+    * RuleDefinitionId: int <<FK>>
+    * ExecutionTagId: int <<FK>>
 }
 
 entity "dv_snapshot.Tag" as exeTags {
@@ -181,7 +198,7 @@ entity "dv_execution.RuleLog" as exeRuleLog {
     ExecutionRuleLogId : int <<generated >> <<PK>>
     --
     * ExecutionContextId: int <<FK>>
-    * RuleId : int <<FK>>
+    * RuleDefinitionId : int <<FK>>
     * StatusTypeId : int <<<FK>>
     ..
     Result: int
@@ -205,8 +222,8 @@ entity "dv_enumeration.StatusType" as StatusType {
     Modified: datetime <<default now()>>
 }
 
-entity "dv_enumeration.DataEngineType" as DatabaseEngineType {
-    * DataEngineTypeId: int <<generated>> <<PK>>
+entity "dv_enumeration.DatabaseEngineType" as DatabaseEngineType {
+    * DatabaseEngineTypeId: int <<generated>> <<PK>>
     --
     * Name : varchar(256) <<UNIQUE>>
     ..
@@ -273,7 +290,9 @@ Containers "ParentContainerId" |o..o{ "ContainerId" Containers
 Containers ||..|| ContainerType
 
 RuleTagAssociations }|..|{ Tags
-RuleTagAssociations }|..|| Rules
+RuleTagAssociations }|..|| Rule
+
+Rule |o..|{ Rules
 
 RuleSql }|..|| DiagnosticDataDisplayFormatType
 RuleSql ||..|| DatabaseEngineType
@@ -290,6 +309,9 @@ exeContainers }o..|| Containers
 
 exeContainers "ParentContainerId" |o..o{ "ExecutionContainerId" exeContainers
 exeContainers ||..|{ ContainerType
+
+exeContainers ||..o{ exeContainerRuleDefinitionAssociation
+exeContainerRuleDefinitionAssociation }o..o{ Rules
 
 exeDatabaseConnections |o..|{ DatabaseConnections
 
