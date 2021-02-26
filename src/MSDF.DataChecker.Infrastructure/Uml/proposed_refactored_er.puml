@@ -15,7 +15,7 @@ entity "dv_metadata.Container" as Containers {
     IsDefault : bit <<default false>>
     Description : varchar(512)
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_metadata.Rule" as Rules {
@@ -23,41 +23,38 @@ entity "dv_metadata.Rule" as Rules {
     --
     * RuleUniqueId: uuid <<generated>> <<UNIQUE>>
     * Version: sequence <<UNIQUE>>
-    * Name : varchar(max)
     * ErrorSeverityLevelTypeId : int <<FK>>
     * ContainerId : uuid <<FK>>
     ..
-    Description : varchar(512)
     ErrorMessage : varchar(max)
     Resolution : varchar(max)
-    SemanticVersion : varchar(128)
     MaxNumberResults : int
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_metadata.RuleSql" as RuleSql {
     * RuleSqlId: int <<generated>> <<PK>>
     --
-    * RuleId : int <<FK>> <<UNIQUE>>
+    * RuleDefinitionId : int <<FK>> <<UNIQUE>>
     * DatabaseEngineTypeId : int <<FK>> <<UNIQUE>>
     * DefaultDiagnosticDataDisplayFormatTypeId : int <<FK>>
     * RuleSql : varchar(max)
     * DiagnosticSql: varchar(max)
     ..
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_metadata.Tag" as Tags {
     * TagId : int <<generated>> <<PK>>
     --
-    * Name : varchar(max) <<UNIQUE>>
+    * Name : varchar(256) <<UNIQUE>>
     ..
-    Description : varchar(max)
+    Description : varchar(512)
     IsPublic : bit <<default false>>
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_metadata.ContainerTagAssociation" as ContainerTagAssociations {
@@ -67,7 +64,7 @@ entity "dv_metadata.ContainerTagAssociation" as ContainerTagAssociations {
     * TagId: int <<FK>>
     ..
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_metadata.RuleTagAssociation" as RuleTagAssociations {
@@ -77,7 +74,7 @@ entity "dv_metadata.RuleTagAssociation" as RuleTagAssociations {
     * TagId: int <<FK>>
     ..
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_metadata.DatabaseConnection" as DatabaseConnections {
@@ -88,7 +85,7 @@ entity "dv_metadata.DatabaseConnection" as DatabaseConnections {
     * DatabaseEngineTypeId : int <<FK>>
     ..
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 
@@ -114,7 +111,7 @@ entity "dv_snapshot.DatabaseConnection" as exeDatabaseConnections {
     * DatabaseEngineTypeId : int <<FK>>
     ..
     Created: datetime <<default now()>>
-    Updated: datetime <<default now()>>
+    Modified: datetime <<default now()>>
 }
 
 entity "dv_snapshot.ContainerTagAssociation" as exeContainerTagAssociations {
@@ -151,7 +148,7 @@ entity "dv_execution.Context" as exeContext {
     ActiveFrom : datetime
     ActiveTo : datetime
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_execution.ContextTagAssociation" as exeContextTag {
@@ -170,7 +167,7 @@ entity "dv_execution.Job" as exeJob {
     ..
     Cron : varchar(100)
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_execution.JobContextAssociation" as exeJobAssociation {
@@ -179,8 +176,6 @@ entity "dv_execution.JobContextAssociation" as exeJobAssociation {
     * ExecutionContextId : int <<FK>> <<UNIQUE>>
     * ExecutionJobId : int <<FK>>
 }
-
-
 
 entity "dv_execution.RuleLog" as exeRuleLog {
     ExecutionRuleLogId : int <<generated >> <<PK>>
@@ -196,7 +191,7 @@ entity "dv_execution.RuleLog" as exeRuleLog {
     Response : varchar(max)
     DiagnosticData : json
     Created: datetime <<default now()>>
-    Updated: datetime <<default now()>>
+    Modified: datetime <<default now()>>
 }
 
 ' ENUMERATION SCHEMA
@@ -207,7 +202,7 @@ entity "dv_enumeration.StatusType" as StatusType {
     ..
     Description: varchar(512)
     Created: datetime <<default now()>>
-    Updated: datetime <<default now()>>
+    Modified: datetime <<default now()>>
 }
 
 entity "dv_enumeration.DataEngineType" as DatabaseEngineType {
@@ -217,7 +212,7 @@ entity "dv_enumeration.DataEngineType" as DatabaseEngineType {
     ..
     Description : varchar(512)
     Created: datetime <<default now()>>
-    Updated: datetime <<default now()>>
+    Modified: datetime <<default now()>>
 }
 
 entity "dv_enumeration.DiagnosticDataDisplayFormatType" as DiagnosticDataDisplayFormatType {
@@ -227,7 +222,7 @@ entity "dv_enumeration.DiagnosticDataDisplayFormatType" as DiagnosticDataDisplay
     ..
     Description : varchar(512)
     Created : datetime
-    Updated : datetime
+    Modified : datetime
 }
 
 entity "dv_enumeration.ErrorSeverityLevelType" as ErrorSeverityLevelType {
@@ -237,28 +232,28 @@ entity "dv_enumeration.ErrorSeverityLevelType" as ErrorSeverityLevelType {
     ..
     Description : varchar(512)
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 entity "dv_enumeration.ContainerType" as ContainerType {
     * ContainerTypeId : int <<generated>> <<PK>>
     --
     * Name : varchar(256) <<UNIQUE>>
-    Description : varchar(512)
     ..
+    Description : varchar(512)
     Created : datetime <<default now()>>
-    Updated : datetime <<default now()>>
+    Modified : datetime <<default now()>>
 }
 
 ' INSTRUCUTURE SPECIFIC
 entity "instructure.Tenant" as Tenant {
     *TenantId: int <<generated>> <<PK>>
     ---
-    * TenantUniqueId : varchar(256)
-    * Name : varchar(256)
+    * TenantUniqueId : varchar(256) <<UNIQUE>>
+    * Name : varchar(256) <<UNIQUE>>
     ..
     Created: datetime <<default now()>>
-    Updated: datetime <<default now()>>
+    Modified: datetime <<default now()>>
 }
 
 entity "instructure.TenantDatabaseConnectionAssociation" as TenantDatabaseConnectionAssociation {
@@ -268,7 +263,7 @@ entity "instructure.TenantDatabaseConnectionAssociation" as TenantDatabaseConnec
     * DatabaseConnectionId : int <<FK>>
     ..
     Created: datetime <<default now()>>
-    Updated: datetime <<default now()>>
+    Modified: datetime <<default now()>>
 }
 
 Containers |o..|{ Rules
@@ -290,6 +285,8 @@ exeContext ||..|| exeDatabaseConnections
 exeContext ||..|| exeContainers
 exeContext ||..|{ exeContextTag
 exeTags }o..|| exeContextTag
+
+exeContainers }o..|| Containers
 
 exeContainers "ParentContainerId" |o..o{ "ExecutionContainerId" exeContainers
 exeContainers ||..|{ ContainerType
