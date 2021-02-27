@@ -56,6 +56,7 @@ namespace MSDF.DataChecker.DbDeploy
                     .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                     .AddUserSecrets<Program>()
+                    .AddEnvironmentVariables()
                     .AddCommandLine(args, CommandLineArguments.SwitchingMapping())
                     .Build();
 
