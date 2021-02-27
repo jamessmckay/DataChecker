@@ -34,10 +34,10 @@ namespace MSDF.DataChecker.Domain.Services.Containers.Queries
         // TODO Address n+1
         public class Handler : IRequestHandler<Query, Result<CollectionCategoryResource>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IMapper _mapper;
 
-            public Handler(DatabaseContext db, IMapper mapper)
+            public Handler(LegacyDatabaseContext db, IMapper mapper)
             {
                 _db = db;
                 _mapper = mapper;

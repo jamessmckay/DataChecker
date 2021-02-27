@@ -27,9 +27,9 @@ namespace MSDF.DataChecker.Domain.Services.DatabaseEnvironments.Queries
         {
             private readonly IDatabaseEnvironmentConnectionStringProvider _connectionStringProvider;
             private readonly IDatabaseMapProvider _databaseMapProvider;
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
 
-            public Handler(DatabaseContext db, IDatabaseMapProvider databaseMapProvider,
+            public Handler(LegacyDatabaseContext db, IDatabaseMapProvider databaseMapProvider,
                 IDatabaseEnvironmentConnectionStringProvider connectionStringProvider)
             {
                 _db = db;

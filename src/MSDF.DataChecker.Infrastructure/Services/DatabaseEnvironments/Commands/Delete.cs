@@ -23,9 +23,9 @@ namespace MSDF.DataChecker.Domain.Services.DatabaseEnvironments.Commands
 
         public class Handler : IRequestHandler<Command, Result<bool>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
 
-            public Handler(DatabaseContext db)
+            public Handler(LegacyDatabaseContext db)
             {
                 _db = db;
             }

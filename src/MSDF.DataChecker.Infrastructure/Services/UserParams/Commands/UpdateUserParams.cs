@@ -34,10 +34,10 @@ namespace MSDF.DataChecker.Domain.Services.UserParams.Commands
 
         public class Handler : IRequestHandler<Command, Result<List<UserParamResource>>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IMapper _mapper;
 
-            public Handler(DatabaseContext db, IMapper mapper)
+            public Handler(LegacyDatabaseContext db, IMapper mapper)
             {
                 _db = db;
                 _mapper = mapper;

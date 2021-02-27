@@ -27,11 +27,11 @@ namespace MSDF.DataChecker.Domain.Services.RuleExecutionLogDetails.Queries
 
         public class Handler : IRequestHandler<Query, Result<RuleExecutionLogDetailResource>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IDatabaseEnvironmentConnectionStringProvider _environmentConnectionStringProvider;
             private readonly IMapper _mapper;
 
-            public Handler(DatabaseContext db, IMapper mapper,
+            public Handler(LegacyDatabaseContext db, IMapper mapper,
                 IDatabaseEnvironmentConnectionStringProvider environmentConnectionStringProvider)
             {
                 _db = db;

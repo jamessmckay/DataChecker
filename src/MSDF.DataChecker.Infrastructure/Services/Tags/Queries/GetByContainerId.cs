@@ -27,10 +27,10 @@ namespace MSDF.DataChecker.Domain.Services.Tags.Queries
 
         public class Handler : IRequestHandler<Query, Result<List<TagResource>>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IMapper _mapper;
 
-            public Handler(DatabaseContext db, IMapper mapper)
+            public Handler(LegacyDatabaseContext db, IMapper mapper)
             {
                 _db = db;
                 _mapper = mapper;

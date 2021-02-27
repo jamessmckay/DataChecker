@@ -21,10 +21,10 @@ namespace MSDF.DataChecker.Domain.Services.DatabaseEnvironments.Queries
 
         public class Handler : IRequestHandler<Query, Result<List<DatabaseEnvironmentResource>>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IMapper _mapper;
 
-            public Handler(DatabaseContext db, IMapper mapper)
+            public Handler(LegacyDatabaseContext db, IMapper mapper)
             {
                 _db = db;
                 _mapper = mapper;

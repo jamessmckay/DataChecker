@@ -23,16 +23,26 @@ namespace MSDF.DataChecker.Domain.Extensions
                 entity.SetTableName(entity.GetTableName().ToLowerInvariant());
 
                 foreach (var property in entity.GetProperties())
-                    property.SetColumnName(property.GetColumnName(StoreObjectIdentifier.Table(entity.GetTableName(), entity.GetSchema())).ToLowerInvariant());
+                {
+                    property.SetColumnName(
+                        property.GetColumnName(StoreObjectIdentifier.Table(entity.GetTableName(), entity.GetSchema()))
+                            .ToLowerInvariant());
+                }
 
                 foreach (var key in entity.GetKeys())
+                {
                     key.SetName(key.GetName().ToLowerInvariant());
+                }
 
                 foreach (var key in entity.GetForeignKeys())
+                {
                     key.SetConstraintName(key.GetConstraintName().ToLowerInvariant());
+                }
 
                 foreach (var index in entity.GetIndexes())
+                {
                     index.SetDatabaseName(index.GetDatabaseName().ToLowerInvariant());
+                }
             }
         }
     }

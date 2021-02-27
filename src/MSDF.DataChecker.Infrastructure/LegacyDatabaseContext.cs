@@ -10,11 +10,11 @@ using MSDF.DataChecker.Domain.Extensions;
 
 namespace MSDF.DataChecker.Domain
 {
-    public class DatabaseContext : DbContext
+    public class LegacyDatabaseContext : DbContext
     {
         private readonly DatabaseEngine _databaseEngine;
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options, DatabaseEngine databaseEngine )
+        public LegacyDatabaseContext(DbContextOptions<LegacyDatabaseContext> options, DatabaseEngine databaseEngine)
             : base(options)
         {
             _databaseEngine = databaseEngine;

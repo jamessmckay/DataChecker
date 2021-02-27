@@ -28,9 +28,9 @@ namespace MSDF.DataChecker.Domain.Services.RuleExecutionLogDetails.Queries
 
         public class Handler : IRequestHandler<Query, Result<RuleExecutionLogDetailResource>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
 
-            public Handler(DatabaseContext db)
+            public Handler(LegacyDatabaseContext db)
             {
                 _db = db;
             }

@@ -59,7 +59,7 @@ namespace MSDF.DataChecker.WebApi
 
             services.AddSingleton(databaseEngine);
 
-            services.AddDbContext<DatabaseContext>(
+            services.AddDbContext<LegacyDatabaseContext>(
                 options =>
                 {
                     string connectionString = Configuration.GetConnectionString("DataCheckerStore");

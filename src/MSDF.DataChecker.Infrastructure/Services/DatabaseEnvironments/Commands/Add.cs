@@ -27,11 +27,11 @@ namespace MSDF.DataChecker.Domain.Services.DatabaseEnvironments.Commands
         public class Handler : IRequestHandler<Command, Result<Guid>>
         {
             private readonly IDatabaseMapProvider _databaseMapProvider;
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IEncryptionProvider _encryptionProvider;
             private readonly IMapper _mapper;
 
-            public Handler(DatabaseContext db, IMapper mapper,
+            public Handler(LegacyDatabaseContext db, IMapper mapper,
                 IDatabaseMapProvider databaseMapProvider,
                 IEncryptionProvider encryptionProvider)
             {

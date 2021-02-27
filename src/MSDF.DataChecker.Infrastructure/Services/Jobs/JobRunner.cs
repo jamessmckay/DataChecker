@@ -32,9 +32,9 @@ namespace MSDF.DataChecker.Domain.Services.Jobs
     public class JobRunner : IJobRunner
     {
         private readonly IDatabaseEnvironmentConnectionStringProvider _databaseEnvironmentConnectionStringProvider;
-        private readonly DatabaseContext _db;
+        private readonly LegacyDatabaseContext _db;
 
-        public JobRunner(DatabaseContext db,
+        public JobRunner(LegacyDatabaseContext db,
             IDatabaseEnvironmentConnectionStringProvider databaseEnvironmentConnectionStringProvider)
         {
             _db = db;

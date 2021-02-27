@@ -18,7 +18,7 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
     [SetUpFixture]
     public class GlobalIntegrationTestsSetup
     {
-        public static DatabaseContext DatabaseContext;
+        public static LegacyDatabaseContext LegacyDatabaseContext;
         private string _databaseFileName;
 
         [OneTimeSetUp]
@@ -28,20 +28,20 @@ namespace MSDF.DataChecker.Tests.IntegrationTests
 
             var connectionStringBuilder = new SqliteConnectionStringBuilder($"Data Source={_databaseFileName};Cache=Shared");
 
-            var contextOptions = new DbContextOptionsBuilder<DatabaseContext>()
+            var contextOptions = new DbContextOptionsBuilder<LegacyDatabaseContext>()
                 .UseSqlite(connectionStringBuilder.ConnectionString)
                 .LogTo(x => Debug.WriteLine(x), LogLevel.Information)
                 .Options;
 
-            DatabaseContext = new DatabaseContext(contextOptions, DatabaseEngine.SqlServer);
+            LegacyDatabaseContext = new LegacyDatabaseContext(contextOptions, DatabaseEngine.SqlServer);
 
-            await DatabaseContext.Database.EnsureCreatedAsync();
+            await LegacyDatabaseContext.Database.EnsureCreatedAsync();
         }
 
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            DatabaseContext?.Dispose();
+            LegacyDatabaseContext?.Dispose();
 
             if (File.Exists(_databaseFileName))
             {

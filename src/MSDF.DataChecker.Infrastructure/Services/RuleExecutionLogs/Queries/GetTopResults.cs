@@ -34,10 +34,10 @@ namespace MSDF.DataChecker.Domain.Services.RuleExecutionLogs.Queries
 
         public class Handler : IRequestHandler<Query, Result<List<RuleTestResultResource>>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IMapper _mapper;
 
-            public Handler(DatabaseContext db, IMapper mapper)
+            public Handler(LegacyDatabaseContext db, IMapper mapper)
             {
                 _db = db;
                 _mapper = mapper;

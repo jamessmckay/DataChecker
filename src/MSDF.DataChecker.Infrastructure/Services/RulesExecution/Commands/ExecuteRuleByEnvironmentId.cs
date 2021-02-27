@@ -33,11 +33,11 @@ namespace MSDF.DataChecker.Domain.Services.RulesExecution.Commands
 
         public class Handler : IRequestHandler<Command, Result<RuleTestResultResource>>
         {
-            private readonly DatabaseContext _db;
+            private readonly LegacyDatabaseContext _db;
             private readonly IMapper _mapper;
             private readonly IRuleRunner _ruleRunner;
 
-            public Handler(DatabaseContext db, IMapper mapper, IRuleRunner ruleRunner)
+            public Handler(LegacyDatabaseContext db, IMapper mapper, IRuleRunner ruleRunner)
             {
                 _db = db;
                 _mapper = mapper;
