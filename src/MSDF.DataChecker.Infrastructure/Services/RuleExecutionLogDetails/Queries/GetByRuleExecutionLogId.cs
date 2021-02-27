@@ -76,7 +76,7 @@ namespace MSDF.DataChecker.Domain.Services.RuleExecutionLogDetails.Queries
                         await AddDetailsFor(catalog);
                     }
 
-                    async Task AddDetailsFor(Catalog catalog)
+                    async Task AddDetailsFor(LegacyCatalog catalog)
                     {
                         result.DestinationTable = catalog.Name;
                         result.RuleDiagnosticSql = ruleExecutionLog.DiagnosticSql;

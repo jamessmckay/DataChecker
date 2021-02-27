@@ -35,7 +35,7 @@ namespace MSDF.DataChecker.Domain
 
         public DbSet<UserParam> UserParams { get; set; }
 
-        public DbSet<Catalog> Catalogs { get; set; }
+        public DbSet<LegacyCatalog> Catalogs { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
 

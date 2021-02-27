@@ -20,7 +20,11 @@ namespace MSDF.DataChecker.Domain.Extensions
 
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
-                entity.SetTableName(entity.GetTableName().ToLowerInvariant());
+                string tableName = databaseEngine.Equals(DatabaseEngine.SQLite)
+                    ? $"{entity.GetSchema()}__{entity.GetTableName()}".ToLowerInvariant()
+                    : entity.GetTableName().ToLowerInvariant();
+
+                entity.SetTableName(tableName);
 
                 foreach (var property in entity.GetProperties())
                 {

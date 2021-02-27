@@ -13,7 +13,7 @@ namespace MSDF.DataChecker.Domain.Services.Catalogs
     {
         public CatalogMappingProfile()
         {
-            CreateMap<Catalog, CatalogResource>()
+            CreateMap<LegacyCatalog, CatalogResource>()
                 .ReverseMap();
         }
     }

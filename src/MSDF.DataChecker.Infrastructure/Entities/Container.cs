@@ -40,7 +40,7 @@ namespace MSDF.DataChecker.Domain.Entities
         public int? RuleDetailsDestinationId { get; set; }
 
         [ForeignKey("RuleDetailsDestinationId")]
-        public Catalog RuleDetailsDestination { get; set; }
+        public LegacyCatalog RuleDetailsDestination { get; set; }
     }
 
     [Table("ContainerTypes", Schema = "core")]
