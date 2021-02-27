@@ -16,12 +16,26 @@ using static Nuke.Common.IO.FileSystemTasks;
 
 [CheckBuildProjectConfigurations]
 [ShutdownDotNetAfterServerBuild]
-partial class  Build : NukeBuild
+partial class Build : NukeBuild
 {
+    const string DefaultPostgresConnectionStringTemplate =
+        "host=localhost;port=5432;username=postgres;database={0};pooling=true;Minimum Pool Size=10;Maximum Pool Size=50;client encoding=utf-8;command timeout=600";
+
+    const string DefaultSqlServerConnectionStringTemplate =
+        "Data Source=localhost;Database={0};Integrated Security=true;Persist Security Info=True";
+
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    readonly Configuration Configuration = IsLocalBuild
+    readonly Configuration Configuration  = IsLocalBuild
         ? Configuration.Debug
         : Configuration.Release;
+
+    [Parameter("Connection string template (database is templated) - Default 'PostgreSQL' with an .env file")]
+    readonly string ConnectionStringTemplate;
+
+    [Parameter("Database Name to deploy to the database to - Default 'data_checker'")] readonly string DatabaseName;
+
+    [Parameter("Database engine - Default 'PostgreSQL'")] readonly string DatabaseEngine;
+
     [GitRepository] readonly GitRepository GitRepository;
 
     [Solution] readonly Solution Solution;
@@ -41,6 +55,8 @@ partial class  Build : NukeBuild
     AbsolutePath WebApiDirectory => SourceDirectory / "MSDF.DataChecker.WebApi";
 
     AbsolutePath DaemonDirectory => SourceDirectory / "MSDF.DataChecker.JobExecutorDaemon";
+
+    AbsolutePath DeployDirectory => SourceDirectory / "MSDF.Datachecker.DbDeploy";
 
     AbsolutePath ReportsDirectory => RootDirectory / "reports";
 

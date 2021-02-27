@@ -11,7 +11,7 @@ namespace MSDF.DataChecker.DbDeploy
 {
     public class CommandLineArguments
     {
-        [Option("engine", Required = true, HelpText = "Database Engine to run against (postgreSql or sqlServer")]
+        [Option('e', "engine", Required = true, HelpText = "Database Engine to run against (postgreSql or sqlServer")]
         public string DatabaseEngine { get; set; }
 
         [Option('c', "connectionString", Required=true, HelpText = "Connection String to deploy to.")]
@@ -22,7 +22,8 @@ namespace MSDF.DataChecker.DbDeploy
             {
                 {"-c", "ConnectionStrings:DataCheckerStore"},
                 {"--connectionString", "ConnectionStrings:DataCheckerStore"},
-                {"--engine", "DatabaseEngine"}
+                {"--engine", "DatabaseEngine"},
+                {"-e", "DatabaseEngine"}
             };
     }
 }

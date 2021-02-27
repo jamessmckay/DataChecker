@@ -30,6 +30,7 @@ partial class Build
 
                     var sources = WebApiDirectory.GlobDirectories("**/bin", "**/obj")
                         .Concat(DaemonDirectory.GlobDirectories("**/bin", "**/obj"))
+                        .Concat(DeployDirectory.GlobDirectories("**/bin", "**/obj"))
                         .Concat(InfrastructureDirectory.GlobDirectories("**/bin", "**/obj"))
                         .ToArray();
 
