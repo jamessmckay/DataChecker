@@ -1,0 +1,36 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
+IF NOT EXISTS(SELECT 1
+FROM sys.schemas
+WHERE name = N'dv_enumeration')
+BEGIN
+    EXEC('CREATE SCHEMA dv_enumeration');
+END
+GO
+
+IF NOT EXISTS(SELECT 1
+FROM sys.schemas
+WHERE name = N'dv_execution')
+BEGIN
+    EXEC('CREATE SCHEMA dv_execution');
+END
+GO
+
+IF NOT EXISTS(SELECT 1
+FROM sys.schemas
+WHERE name = N'dv_metadata')
+BEGIN
+    EXEC('CREATE SCHEMA dv_metadata');
+END
+GO
+
+IF NOT EXISTS(SELECT 1
+FROM sys.schemas
+WHERE name = N'dv_snapshot')
+BEGIN
+    EXEC('CREATE SCHEMA dv_snapshot');
+END
+GO

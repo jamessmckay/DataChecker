@@ -81,7 +81,7 @@ create table if not exists dv_metadata.container
     name varchar (256) not null,
     containertypeid int not null,
     parentcontainerid uuid,
-    isdefault bit,
+    isdefault boolean,
     description varchar(512),
     created timestamp,
     modified timestamp,
@@ -90,6 +90,7 @@ create table if not exists dv_metadata.container
 );
 
 alter table dv_metadata.container alter column containerid set default gen_random_uuid();
+alter table dv_metadata.container alter column isdefault set default false;
 alter table dv_metadata.container alter column created set default current_timestamp;
 alter table dv_metadata.container alter column modified set default current_timestamp;
 
@@ -250,10 +251,10 @@ create table if not exists dv_snapshot.containerruledefinitionassociation
 
 create table if not exists dv_snapshot.ruledefinitiontagassociation
 (
-    executionruletagassociationid serial not null,
+    executionruledefinitiontagassociationid serial not null,
     ruledefinitionid int not null,
     executiontagid int not null,
-    constraint pk_ruletagassociation_executionruletagassociationid primary key (executionruletagassociationid)
+    constraint pk_rdta_executionruledefinitiontagassociationid primary key (executionruledefinitiontagassociationid)
 );
 
 create table if not exists dv_snapshot.tag

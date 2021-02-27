@@ -4,41 +4,41 @@
 -- See the LICENSE and NOTICES files in the project root for more information.
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('Ed-Fi v2.X', 'Ed-Fi Environment v2.X ', false)
+values('Ed-Fi v2.X', 'Ed-Fi Environment v2.X ', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('Ed-Fi v3.X', 'Ed-Fi Environment v3.X ', false)
+values('Ed-Fi v3.X', 'Ed-Fi Environment v3.X ', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('2.5', 'Data Model 2.5', false)
+values('2.5', 'Data Model 2.5', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('2.6', 'Data Model 2.6', false)
+values('2.6', 'Data Model 2.6', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('3.1', 'Data Model 3.1', false)
+values('3.1', 'Data Model 3.1', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('3.2', 'Data Model 3.2', false)
+values('3.2', 'Data Model 3.2', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('3.2-a', 'Data Model 3.2-a', false)
+values('3.2-a', 'Data Model 3.2-a', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('3.2-b', 'Data Model 3.2-b', false)
+values('3.2-b', 'Data Model 3.2-b', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('3.2-c', 'Data Model 3.2-c', false)
+values('3.2-c', 'Data Model 3.2-c', true)
 on conflict on constraint uc_tag_name do nothing;
 
 insert into dv_metadata.Tag (name, description, ispublic)
-values('3.3-a', 'Data Model 3.3-a', false)
+values('3.3-a', 'Data Model 3.3-a', true)
 on conflict on constraint uc_tag_name do nothing;
