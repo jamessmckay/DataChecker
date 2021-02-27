@@ -11,6 +11,7 @@ namespace MSDF.DataChecker.Common.Enumerations
     {
         public static readonly DatabaseEngine SqlServer = new DatabaseEngine( Conventions.SqlServer, "SQL Server");
         public static readonly DatabaseEngine PostgreSQL = new DatabaseEngine(Conventions.PostgreSQL, "PostgreSQL");
+        public static readonly DatabaseEngine SQLite = new DatabaseEngine(Conventions.SQLite, "SQLite");
 
         public DatabaseEngine(string value, string displayName)
             : base(value, displayName)

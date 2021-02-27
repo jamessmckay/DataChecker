@@ -9,5 +9,6 @@ namespace MSDF.DataChecker.Common
     {
         public const string SqlServer = "sqlServer";
         public const string PostgreSQL = "postgreSql";
+        public const string SQLite = "sqlite";
     }
 }
