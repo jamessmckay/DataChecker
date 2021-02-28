@@ -14,10 +14,10 @@ using MSDF.DataChecker.Common.Enumerations;
 using MSDF.DataChecker.Domain;
 using NUnit.Framework;
 
-namespace MSDF.DataChecker.Tests.IntegrationTests
+namespace MSDF.DataChecker.Tests.MappingTests
 {
     [SetUpFixture]
-    public class GlobalIntegrationTestsSetup
+    public class SqliteMappingTestsSetup
     {
         public static DatabaseContext DatabaseContext;
 

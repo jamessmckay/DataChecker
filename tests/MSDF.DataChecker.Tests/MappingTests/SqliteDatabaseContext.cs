@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using MSDF.DataChecker.Common.Enumerations;
 using MSDF.DataChecker.Domain;
 
-namespace MSDF.DataChecker.Tests.IntegrationTests
+namespace MSDF.DataChecker.Tests.MappingTests
 {
     public class SqliteDatabaseContext : DatabaseContext
     {

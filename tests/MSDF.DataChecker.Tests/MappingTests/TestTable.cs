@@ -6,7 +6,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MSDF.DataChecker.Tests.IntegrationTests
+namespace MSDF.DataChecker.Tests.MappingTests
 {
     [Table("test", Schema = "test_schema")]
     public class TestTable
