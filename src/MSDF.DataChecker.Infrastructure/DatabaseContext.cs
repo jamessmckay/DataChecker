@@ -3,9 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using Microsoft.EntityFrameworkCore;
 using MSDF.DataChecker.Common.Enumerations;
+using MSDF.DataChecker.Domain.Entities.Enumeration;
 using MSDF.DataChecker.Domain.Extensions;
 
 namespace MSDF.DataChecker.Domain
@@ -14,16 +14,22 @@ namespace MSDF.DataChecker.Domain
     {
         private readonly DatabaseEngine _databaseEngine;
 
-        public DatabaseContext(DbContextOptions<DatabaseContext> options, DatabaseEngine databaseEngine): base(options)
+        public DatabaseContext(DbContextOptions<DatabaseContext> options, DatabaseEngine databaseEngine)
+            : base(options)
         {
             _databaseEngine = databaseEngine;
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-        }
+        public DbSet<ContainerType> ContainerTypes { get; set; }
+
+        public DbSet<DatabaseEngineType> DatabaseEngineTypes { get; set; }
+
+        public DbSet<DiagnosticDataDisplayFormatType> DiagnosticDataDisplayFormatTypes { get; set; }
+
+        public DbSet<ErrorSeverityLevelType> ErrorSeverityLevelTypes { get; set; }
+
+        public DbSet<StatusType> StatusTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
