@@ -63,7 +63,7 @@ namespace MSDF.DataChecker.Domain.Services.Containers.Commands
 
                 return result;
 
-                async Task CreateUpdateTags(ContainerResource resource, Container entity)
+                async Task CreateUpdateTags(ContainerResource resource, LegacyContainer entity)
                 {
                     var listTags = await _db.TagEntities
                         .Where(x => x.ContainerId == entity.Id)
@@ -98,7 +98,7 @@ namespace MSDF.DataChecker.Domain.Services.Containers.Commands
                                 }
 
                                 await _db.TagEntities.AddAsync(
-                                    new TagEntity
+                                    new TagLegacyEntity
                                     {
                                         ContainerId = entity.Id,
                                         TagId = resourceTag.Id

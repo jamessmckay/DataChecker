@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MSDF.DataChecker.Domain.Entities
 {
     [Table("EdFiRuleExecutionLogDetails", Schema = "destination")]
-    public class EdFiRuleExecutionLogDetail : IEntity
+    public class EdFiRuleExecutionLogDetail : ILegacyEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

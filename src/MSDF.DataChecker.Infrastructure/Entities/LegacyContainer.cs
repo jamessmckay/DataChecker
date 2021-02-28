@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MSDF.DataChecker.Domain.Entities
 {
     [Table("Containers", Schema = "datachecker")]
-    public class Container : IEntity
+    public class LegacyContainer : ILegacyEntity
     {
         public Guid Id { get; set; }
 
@@ -18,16 +18,16 @@ namespace MSDF.DataChecker.Domain.Entities
 
         public int ContainerTypeId { get; set; }
 
-        public ContainerType ContainerType { get; set; }
+        public LegacyContainerType LegacyContainerType { get; set; }
 
         public Guid? CreatedByUserId { get; set; }
 
         public Guid? ParentContainerId { get; set; }
 
         [ForeignKey("ParentContainerId")]
-        public Container ParentContainer { get; set; }
+        public LegacyContainer ParentLegacyContainer { get; set; }
 
-        public virtual List<Container> ChildContainers { get; set; }
+        public virtual List<LegacyContainer> ChildContainers { get; set; }
 
         public virtual List<Rule> Rules { get; set; }
 
@@ -44,7 +44,7 @@ namespace MSDF.DataChecker.Domain.Entities
     }
 
     [Table("ContainerTypes", Schema = "core")]
-    public class ContainerType
+    public class LegacyContainerType
     {
         public int Id { get; set; }
 

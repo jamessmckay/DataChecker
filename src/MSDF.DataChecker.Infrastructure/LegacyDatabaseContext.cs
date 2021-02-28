@@ -21,9 +21,9 @@ namespace MSDF.DataChecker.Domain
             ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
-        public DbSet<Container> Containers { get; set; }
+        public DbSet<LegacyContainer> Containers { get; set; }
 
-        public DbSet<ContainerType> ContainerTypes { get; set; }
+        public DbSet<LegacyContainerType> ContainerTypes { get; set; }
 
         public DbSet<Rule> Rules { get; set; }
 
@@ -39,7 +39,7 @@ namespace MSDF.DataChecker.Domain
 
         public DbSet<Tag> Tags { get; set; }
 
-        public DbSet<TagEntity> TagEntities { get; set; }
+        public DbSet<TagLegacyEntity> TagEntities { get; set; }
 
         public DbSet<EdFiRuleExecutionLogDetail> EdFiRuleExecutionLogDetails { get; set; }
 

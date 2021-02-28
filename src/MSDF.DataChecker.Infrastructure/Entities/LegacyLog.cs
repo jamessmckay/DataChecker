@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MSDF.DataChecker.Domain.Entities
 {
     [Table("Logs", Schema = "core")]
-    public class Log : IEntity
+    public class Log : ILegacyEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }

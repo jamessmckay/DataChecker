@@ -13,7 +13,7 @@ namespace MSDF.DataChecker.Domain.Services.Containers
     {
         public ContainerMappingProfile()
         {
-            CreateMap<Container, ContainerResource>()
+            CreateMap<LegacyContainer, ContainerResource>()
                 .ForMember(d => d.CommunityUser, opts => opts.Ignore())
                 .ForMember(d => d.Tags, opts => opts.Ignore())
                 .ForMember(d => d.TagIsInherited, opts => opts.Ignore())

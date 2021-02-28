@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MSDF.DataChecker.Domain.Entities
 {
     [Table("Rules", Schema = "datachecker")]
-    public class Rule : IEntity
+    public class Rule : ILegacyEntity
     {
         /// <summary>
         ///     The unique identifier for the SQL rule.

@@ -10,7 +10,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MSDF.DataChecker.Domain.Entities
 {
     [Table("DatabaseEnvironments", Schema = "datachecker")]
-    public class DatabaseEnvironment : IEntity
+    public class DatabaseEnvironment : ILegacyEntity
     {
         public Guid Id { get; set; }
 

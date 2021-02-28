@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MSDF.DataChecker.Domain.Entities
 {
     [Table("Tags", Schema = "datachecker")]
-    public class Tag : IEntity
+    public class Tag : ILegacyEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -26,7 +26,7 @@ namespace MSDF.DataChecker.Domain.Entities
     }
 
     [Table("TagEntities", Schema = "datachecker")]
-    public class TagEntity : IEntity
+    public class TagLegacyEntity : ILegacyEntity
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -39,7 +39,7 @@ namespace MSDF.DataChecker.Domain.Entities
         public Guid? ContainerId { get; set; }
 
         [ForeignKey("ContainerId")]
-        public virtual Container Container { get; set; }
+        public virtual LegacyContainer LegacyContainer { get; set; }
 
         public Guid? RuleId { get; set; }
 

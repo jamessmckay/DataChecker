@@ -647,7 +647,7 @@ namespace MSDF.DataChecker.Domain.Services.Jobs
 
                     containersParents = containersParents.Distinct().ToList();
 
-                    List<Container> allContainersParents = await _db.Containers
+                    List<LegacyContainer> allContainersParents = await _db.Containers
                         .Where(
                             m => containersParents.Contains(m.Id) || m.ParentContainerId != null &&
                                 containersParents.Contains(m.ParentContainerId.Value))
@@ -659,7 +659,7 @@ namespace MSDF.DataChecker.Domain.Services.Jobs
                         .Select(rec => rec.ParentContainerId)
                         .ToList();
 
-                    List<Container> allContainersMain = await _db.Containers
+                    List<LegacyContainer> allContainersMain = await _db.Containers
                         .Where(
                             m => parentContainerIds.Contains(m.Id) || m.ParentContainerId != null &&
                                 parentContainerIds.Contains(m.ParentContainerId.Value))
@@ -748,9 +748,9 @@ namespace MSDF.DataChecker.Domain.Services.Jobs
         {
             public List<Tag> TagsSelected { get; set; }
 
-            public List<Container> Collections { get; set; }
+            public List<LegacyContainer> Collections { get; set; }
 
-            public List<Container> Containers { get; set; }
+            public List<LegacyContainer> Containers { get; set; }
 
             public List<Rule> Rules { get; set; }
         }

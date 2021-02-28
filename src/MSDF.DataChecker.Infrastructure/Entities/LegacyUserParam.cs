@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MSDF.DataChecker.Domain.Entities
 {
     [Table("UserParams", Schema = "datachecker")]
-    public class UserParam : IEntity
+    public class UserParam : ILegacyEntity
     {
         public Guid Id { get; set; }
 

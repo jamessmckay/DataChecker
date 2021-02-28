@@ -42,11 +42,11 @@ namespace MSDF.DataChecker.Domain.Services.Containers.Queries
 
                 if (listParentContainers != null && listParentContainers.Any())
                 {
-                    foreach (Container parentContainer in listParentContainers)
+                    foreach (LegacyContainer parentContainer in listParentContainers)
                     {
                         if (parentContainer.ChildContainers != null && parentContainer.ChildContainers.Any())
                         {
-                            foreach (Container childContainer in parentContainer.ChildContainers)
+                            foreach (LegacyContainer childContainer in parentContainer.ChildContainers)
                             {
                                 result.Add(
                                     new ContainerResource()

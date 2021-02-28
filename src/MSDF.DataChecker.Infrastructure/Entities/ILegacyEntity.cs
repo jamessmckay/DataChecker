@@ -5,5 +5,5 @@
 
 namespace MSDF.DataChecker.Domain.Entities
 {
-    public interface IEntity { }
+    public interface ILegacyEntity { }
 }

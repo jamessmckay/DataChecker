@@ -49,7 +49,7 @@ namespace MSDF.DataChecker.Domain.Services.Containers.Commands
                 var childContainersId = new List<Guid>();
                 var allRules = new List<Rule>();
                 var ruleLogs = new List<RuleExecutionLog>();
-                var allTags = new List<TagEntity>();
+                var allTags = new List<TagLegacyEntity>();
 
                 var rules = await _db.Rules.Where(x => childContainersId.Contains(x.ContainerId)).ToListAsync(cancellationToken);
                 var allRulesId = rules.Select(x => x.Id).ToList();
