@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MSDF.DataChecker.Common.Enumerations;
 using MSDF.DataChecker.Domain;
+using MSDF.DataChecker.Domain.Entities.Enumeration;
 using NUnit.Framework;
 
 namespace MSDF.DataChecker.Tests.MappingTests
@@ -42,6 +43,16 @@ namespace MSDF.DataChecker.Tests.MappingTests
             CancellationToken = new CancellationToken();
 
             await DatabaseContext.Database.EnsureCreatedAsync(CancellationToken);
+
+            await SeedTestData();
+        }
+
+        private async Task SeedTestData()
+        {
+            await DatabaseContext.ContainerTypes
+                .AddRangeAsync(SeedData.ContainerTypes(), CancellationToken);
+
+            await DatabaseContext.SaveChangesAsync(CancellationToken);
         }
 
         [OneTimeTearDown]

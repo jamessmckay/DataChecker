@@ -6,6 +6,7 @@
 using Microsoft.EntityFrameworkCore;
 using MSDF.DataChecker.Common.Enumerations;
 using MSDF.DataChecker.Domain.Entities.Enumeration;
+using MSDF.DataChecker.Domain.Entities.Metadata;
 using MSDF.DataChecker.Domain.Extensions;
 
 namespace MSDF.DataChecker.Domain
@@ -31,9 +32,14 @@ namespace MSDF.DataChecker.Domain
 
         public DbSet<StatusType> StatusTypes { get; set; }
 
+        public DbSet<Container> Containers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyDatabaseServerSpecificConventions(_databaseEngine);
+
+            // apply all of the custom configurations
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ContainerEntityTypeConfiguration).Assembly);
         }
     }
 }
