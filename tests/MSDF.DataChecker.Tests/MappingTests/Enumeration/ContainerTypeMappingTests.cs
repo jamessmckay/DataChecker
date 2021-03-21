@@ -38,7 +38,7 @@ namespace MSDF.DataChecker.Tests.MappingTests.Enumeration
             var result = await _db.ContainerTypes.SingleOrDefaultAsync(x => x.Name == name, _cancellationToken);
 
             result.ShouldNotBeNull();
-            result.ContainerId.ShouldBeGreaterThan(0);
+            result.ContainerTypeId.ShouldBeGreaterThan(0);
             result.Name.ShouldBe(name);
             result.Description.ShouldBeNull();
         }
@@ -61,7 +61,7 @@ namespace MSDF.DataChecker.Tests.MappingTests.Enumeration
             var result = await _db.ContainerTypes.SingleOrDefaultAsync(x => x.Name == name, _cancellationToken);
 
             result.ShouldNotBeNull();
-            result.ContainerId.ShouldBeGreaterThan(0);
+            result.ContainerTypeId.ShouldBeGreaterThan(0);
             result.Name.ShouldBe(name);
             result.Description.ShouldBe(description);
         }
@@ -78,7 +78,7 @@ namespace MSDF.DataChecker.Tests.MappingTests.Enumeration
             var result = await _db.ContainerTypes.SingleOrDefaultAsync(x => x.Name == name, _cancellationToken);
 
             result.ShouldNotBeNull();
-            result.ContainerId.ShouldBeGreaterThan(0);
+            result.ContainerTypeId.ShouldBeGreaterThan(0);
             result.Name.ShouldBe(name);
             result.Description.ShouldBeNull();
 
@@ -89,7 +89,7 @@ namespace MSDF.DataChecker.Tests.MappingTests.Enumeration
 
             var newResult = await _db.ContainerTypes.SingleOrDefaultAsync(x => x.Name == name, _cancellationToken);
 
-            newResult.ContainerId.ShouldBe(result.ContainerId);
+            newResult.ContainerTypeId.ShouldBe(result.ContainerTypeId);
             newResult.Name.ShouldBe(result.Name);
             newResult.Description.ShouldBe("Updated Description");
         }

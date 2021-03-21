@@ -13,8 +13,8 @@ namespace MSDF.DataChecker.Domain.Entities.Enumeration
     public class ContainerType
     {
         [Key]
-        [Column("ContainerId")]
-        public int ContainerId { get; set; }
+        [Column("ContainerTypeId")]
+        public int ContainerTypeId { get; set; }
 
         [Column("Name")]
         [MaxLength(256)]
